@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { theme } from '../assets/styles/styles';
 
 const MenuSelector = ({ category, items, selected, toggle }) => {
   return (
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   category: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#D1AC3C',
+    color: theme.primary,
     marginBottom: 10,
   },
   item: {

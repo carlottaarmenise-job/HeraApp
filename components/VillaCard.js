@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { theme } from '../assets/styles/styles';
 
 const VillaCard = ({ item }) => {
     const navigation = useNavigation();
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#D1AC3C',
+        color: theme.primary,
     },
     location: {
         fontSize: 14,

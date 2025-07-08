@@ -10,6 +10,7 @@ import CustomizeMenuScreen from '../screens/CustomizeMenuScreen';
 import SignupScreen from '../screens/SignupScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
+import { theme } from '../assets/styles/styles';
 
 const Stack = createStackNavigator();
 
@@ -36,7 +37,7 @@ const AppNavigator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D1AC3C', 
+    backgroundColor: theme.primary, 
   },
 });
 

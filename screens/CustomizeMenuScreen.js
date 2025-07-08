@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import MenuSelector from '../components/MenuSelector';
+import { theme } from '../assets/styles/styles';
 
 const menuItems = {
   ANTIPASTI: [
@@ -171,7 +172,7 @@ export default CustomizeMenuScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D1AC3C',
+    backgroundColor: theme.primary,
     padding: 20,
   },
   title: {
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   radioText: {
-    color: '#D1AC3C',
+    color: theme.primary,
     fontWeight: 'bold',
   },
   radioTextSelected: {
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   confirmText: {
-    color: '#D1AC3C',
+    color: theme.primary,
     fontWeight: 'bold',
   },
   resultText: {

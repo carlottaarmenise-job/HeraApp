@@ -9,8 +9,11 @@ import {
     FlatList,
 } from 'react-native';
 import Carousel from '../components/Carousel';
+import { theme } from '../assets/styles/styles';
+import { TextInput } from 'react-native-gesture-handler';
+import AutoCompleteInput from '../components/AutoCompleteInput';
 
-const categories = ['VILLE', 'SALE', 'DIMORE', 'CATERING'];
+const categories = ['MUSICA', 'AUTO', 'FIORI', 'ANIMAZIONE', 'FOTOGRAFI', 'TRUCCO', 'VIAGGI'];
 const topLocations = [
     { id: '1', image: require('../assets/villa1.jpg') },
     { id: '2', image: require('../assets/villa2.jpg') },
@@ -53,40 +56,59 @@ const faqs = [
 ];
 
 
+const provinces = [
+    "Agrigento",
+    "Caltanissetta",
+    "Catania",
+    "Enna",
+    "Messina",
+    "Palermo",
+    "Ragusa",
+    "Siracusa",
+    "Trapani",
+];
+
+
 const HomeScreen = ({ navigation }) => {
     const [expandedFAQ, setExpandedFAQ] = useState(null);
     return (
         <View style={{ flex: 1 }}>
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
-                    <Image source={require('../assets/logo.png')} style={{
-                        width: 150, height: 130, shadowColor: 'black',
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.25,
-                        shadowRadius: 3.84
-                    }} />
+                    <Image source={require('../assets/logo.png')} style={{ width: 150, height: 130 }} />
                 </View>
+                <View style={{backgroundColor:'white', paddingTop:20, paddingBottom: 20}}>
 
                 <Carousel images={[
                     require('../assets/wedding1.jpg'),
                     require('../assets/wedding2.jpg'),
                     require('../assets/wedding3.jpg')
                 ]} />
-                <Text style={styles.sectionTitle}>TOP LOCATION</Text>
+
+                <Text style={styles.titleSearch}>Le nostre Locations...</Text>
+                <View style={{ flex: 1 }}>
+                    <AutoCompleteInput
+                        data={provinces}
+                        placeholder="Cerca provincia..."
+                    />
+                </View>
                 <FlatList
                     horizontal
                     data={topLocations}
                     renderItem={({ item, index }) => (
-                        <View style={{ backgroundColor: 'white', paddingBottom: 16, marginRight: 10, }}>
+                        <View style={{
+                            marginRight: 10, borderRadius: 10, paddingVertical: 6, // iOS
+                            shadowColor: '#000',
+                            shadowOffset: { width: 0, height: 2 },
+                            shadowOpacity: 0.2,
+                            shadowRadius: 3,
+                        }}>
                             <Image source={item.image} style={styles.carouselImage} />
-                            <View style={{ alignItems: 'center', marginTop: 4 }}>
-                                <Text style={{ textAlign: 'center', paddingTop: 6, backgroundColor: '#D1AC3C', width: 30, height: 30, borderRadius: 100, color: 'white' }}>{index + 1}</Text>
-                            </View>
                         </View>
                     )}
                     keyExtractor={(item) => item.id}
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                    contentContainerStyle={{ paddingHorizontal: 16 }}
                 />
 
                 {/* Hero Image */}
@@ -95,22 +117,26 @@ const HomeScreen = ({ navigation }) => {
                     style={styles.heroImage}
                     resizeMode="cover"
                 />
-
-                {/* Category Buttons */}
                 <View style={styles.categoryContainer}>
-                    {categories.map((cat, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            style={styles.categoryButton}
-                            onPress={() => navigation.navigate('VilleList')}
-                        >
-                            <Text style={styles.categoryText}>{cat}</Text>
-                        </TouchableOpacity>
-                    ))}
+                    <FlatList
+                        horizontal
+                        data={categories}
+                        renderItem={({ item, index }) => (
+                            <TouchableOpacity
+                                style={styles.categoryButton}
+                                onPress={() => navigation.navigate('VilleList')}
+                            >
+                                <Text style={styles.categoryText}>{item}</Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ paddingHorizontal: 16 }}
+                    />
                 </View>
 
                 {/* FAQ */}
-                <Text style={styles.sectionTitle}>Q & A</Text>
+                <Text style={styles.titleSearch}>Q & A</Text>
                 {faqs.map((item, i) => (
                     <TouchableOpacity
                         key={i}
@@ -119,12 +145,14 @@ const HomeScreen = ({ navigation }) => {
                             setExpandedFAQ((prev) => (prev === i ? null : i))
                         }
                     >
-                        <Text style={styles.faqQuestion}>• {item.question}</Text>
+                        <Text style={styles.faqQuestion}>{item.question}</Text>
                         {expandedFAQ === i && (
                             <Text style={styles.faqAnswer}>{item.answer}</Text>
                         )}
                     </TouchableOpacity>
                 ))}
+
+                </View>
 
                 {/* Footer */}
                 <View style={styles.footer}>
@@ -146,45 +174,60 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#D1AC3C',
+        backgroundColor: theme.primary,
+    },
+    titleSearch: {
+        borderRadius: 10,
+        fontSize: 25,
+        fontWeight: 'bold',
+        paddingHorizontal: 8,
+        textAlign: 'center',
+        marginHorizontal: 8,
+        marginBottom: 4,
+        marginTop: 8,
+        color: theme.secondary,
     },
     sectionTitle: {
         borderWidth: 2,
         borderColor: 'white',
+        backgroundColor: 'white',
+        borderRadius: 10,
         fontSize: 18,
         fontWeight: 'bold',
         padding: 8,
         textAlign: 'center',
         margin: 8,
-        color: 'white',
+        color: theme.secondary,
     },
     carouselImage: {
         width: 120,
         height: 120,
-        padding: 8
+        padding: 4,
+        borderRadius: 6,
     },
     heroImage: {
         width: '100%',
         height: 200,
-        marginTop: 20,
+        marginTop: 40,
     },
     categoryContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginVertical: 20,
+        backgroundColor: theme.secondary,
+        marginBottom: 40,
+        paddingVertical: 16,
     },
     categoryButton: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255,255,255,0.3)',
         borderRadius: 30,
         paddingVertical: 10,
-        paddingHorizontal: 15,
+        paddingHorizontal: 14,
+        margin: 4,
     },
     categoryText: {
-        color: '#D1AC3C',
+        color: '#fff',
         fontWeight: 'bold',
     },
     faqQuestion: {
-        color: '#333',
+        color: theme.secondary,
         fontSize: 14,
         fontWeight: 'bold',
     },
@@ -194,7 +237,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     faqItem: {
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(186, 206, 166, 0.3)',
         marginHorizontal: 15,
         marginVertical: 5,
         padding: 10,
@@ -202,25 +245,25 @@ const styles = StyleSheet.create({
     },
 
     footer: {
-        marginTop: 30,
         padding: 20,
         borderTopWidth: 1,
-        borderColor: '#fff',
+        borderColor: theme.secondary,
         alignItems: 'center',
+        backgroundColor: theme.primary
     },
     footerText: {
-        color: 'white',
+        color: theme.secondary,
         fontSize: 14,
         marginVertical: 2,
     },
     header: {
         paddingTop: 20,
-        marginBottom: 20,
+        paddingBottom: 10,
         paddingHorizontal: 15,
-        backgroundColor: '#D1AC3C',
+        backgroundColor: theme.primary,
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderColor: '#fff',
+        borderColor: theme.secondary,
     },
 
     headerTitle: {
@@ -245,7 +288,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     signupButtonText: {
-        color: '#D1AC3C',
+        color: theme.secondary,
         fontWeight: 'bold',
         fontSize: 16,
         letterSpacing: 1,

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import { theme } from '../assets/styles/styles';
 
 const SignUpScreen = () => {
   const [form, setForm] = useState({
@@ -112,7 +113,7 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D1AC3C',
+    backgroundColor: theme.primary,
     padding: 20,
   },
   title: {
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: '#D1AC3C',
+    color: theme.primary,
     fontWeight: 'bold',
   },
   footer: {

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import VillaCard from '../components/VillaCard';
+import { theme } from '../assets/styles/styles';
 
 const ville = [
   {
@@ -73,7 +74,7 @@ export default VilleListScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D1AC3C',
+    backgroundColor: theme.primary,
     paddingTop: 20,
   },
 

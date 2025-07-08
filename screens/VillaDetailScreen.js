@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { theme } from '../assets/styles/styles';
 
 const VillaDetailScreen = ({ navigation }) => {
   return (
@@ -62,7 +63,7 @@ export default VillaDetailScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D1AC3C',
+    backgroundColor: theme.primary,
     padding: 15,
   },
   villaTitle: {
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#D1AC3C',
+    color: theme.primary,
     fontWeight: 'bold',
     fontSize: 14,
   },
