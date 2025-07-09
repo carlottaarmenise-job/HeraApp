@@ -8,45 +8,47 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { theme } from '../assets/styles/styles';
+import GalleryScreen from '../components/Gallery';
 
 const VillaDetailScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.villaTitle}>NOME VILLA</Text>
 
-      {/* Immagini della villa */}
-      <View style={styles.imageRow}>
-        <Image source={require('../assets/villa1.jpg')} style={styles.image} />
-        <Image source={require('../assets/villa2.jpg')} style={styles.image} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.back}>{'<'}</Text>
+        </TouchableOpacity>
+        <Image source={require('../assets/logo.png')} style={{ width: 80, height: 80 }} />
       </View>
-      <View style={styles.imageRow}>
-        <Image source={require('../assets/villa3.jpg')} style={styles.image} />
-        <Image source={require('../assets/villa4.jpg')} style={styles.image} />
+      <View style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
+
+        <Text style={styles.villaTitle}>NOME VILLA</Text>
+
+        <GalleryScreen />
+        {/* Descrizione */}
+        <Text style={styles.description}>
+          La nostra selezione di strutture include le più belle ville regionali del mondo,
+          con location affascinanti per ogni tipo di evento: matrimoni, cerimonie e feste private.
+        </Text>
+
+        <Text style={styles.description}>
+          Tutte le location sono state selezionate con cura per garantire il massimo della qualità
+          in termini di ambientazione, logistica e servizi.
+        </Text>
+
+        <Text style={styles.description}>
+          Le ville sono dislocate nel cuore delle migliori destinazioni siciliane e sono state
+          ottimizzate per offrire un’esperienza completa, unica e memorabile.
+        </Text>
+
+        {/* Pulsante */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('CustomizeMenu')}
+        >
+          <Text style={styles.buttonText}>PERSONALIZZA IL TUO MENU</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Descrizione */}
-      <Text style={styles.description}>
-        La nostra selezione di strutture include le più belle ville regionali del mondo,
-        con location affascinanti per ogni tipo di evento: matrimoni, cerimonie e feste private.
-      </Text>
-
-      <Text style={styles.description}>
-        Tutte le location sono state selezionate con cura per garantire il massimo della qualità
-        in termini di ambientazione, logistica e servizi.
-      </Text>
-
-      <Text style={styles.description}>
-        Le ville sono dislocate nel cuore delle migliori destinazioni siciliane e sono state
-        ottimizzate per offrire un’esperienza completa, unica e memorabile.
-      </Text>
-
-      {/* Pulsante */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('CustomizeMenu')}
-      >
-        <Text style={styles.buttonText}>PERSONALIZZA IL TUO MENU</Text>
-      </TouchableOpacity>
 
       {/* Footer */}
       <View style={styles.footer}>
@@ -64,52 +66,65 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.primary,
-    padding: 15,
   },
   villaTitle: {
+    padding: 16,
     fontSize: 22,
     fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 15,
-  },
-  imageRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  image: {
-    width: '48%',
-    height: 100,
-    borderRadius: 8,
+    color: theme.secondary,
   },
   description: {
-    color: 'white',
+    paddingHorizontal: 16,
+    color: theme.secondary,
     fontSize: 14,
     marginTop: 10,
     lineHeight: 20,
   },
   button: {
-    backgroundColor: 'white',
-    padding: 15,
+    backgroundColor: theme.primary,
+    padding: 16,
+    margin: 16,
     borderRadius: 8,
     marginTop: 30,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   buttonText: {
-    color: theme.primary,
+    color: 'white',
     fontWeight: 'bold',
     fontSize: 14,
   },
   footer: {
-    marginTop: 30,
     padding: 20,
     borderTopWidth: 1,
-    borderColor: '#fff',
+    borderColor: theme.secondary,
     alignItems: 'center',
+    backgroundColor: theme.primary
   },
   footerText: {
-    color: 'white',
+    color: theme.secondary,
     fontSize: 14,
     marginVertical: 2,
+  },
+  header: {
+    flexDirection: 'row',
+    padding: 16,
+    paddingBottom: 0,
+    backgroundColor: theme.primary,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: theme.secondary,
+  },
+  back: {
+    color: 'white',
+    fontWeight: 'bold',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: theme.secondary,
+    borderRadius: 100,
   },
 });

@@ -15,10 +15,10 @@ import AutoCompleteInput from '../components/AutoCompleteInput';
 
 const categories = ['MUSICA', 'AUTO', 'FIORI', 'ANIMAZIONE', 'FOTOGRAFI', 'TRUCCO', 'VIAGGI'];
 const topLocations = [
-    { id: '1', image: require('../assets/villa1.jpg') },
-    { id: '2', image: require('../assets/villa2.jpg') },
-    { id: '3', image: require('../assets/villa3.jpg') },
-    { id: '4', image: require('../assets/villa4.jpg') },
+    { id: '1', name: 'Sale ricevimenti' },
+    { id: '2', name: 'Ville' },
+    { id: '3', name: 'Dimore nobiliari' },
+    { id: '4', name: 'Catering' },
 ];
 const faqs = [
     {
@@ -77,80 +77,72 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.header}>
                     <Image source={require('../assets/logo.png')} style={{ width: 150, height: 130 }} />
                 </View>
-                <View style={{backgroundColor:'white', paddingTop:20, paddingBottom: 20}}>
+                <View style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
 
-                <Carousel images={[
-                    require('../assets/wedding1.jpg'),
-                    require('../assets/wedding2.jpg'),
-                    require('../assets/wedding3.jpg')
-                ]} />
+                    <Carousel images={[
+                        require('../assets/wedding1.jpg'),
+                        require('../assets/wedding2.jpg'),
+                        require('../assets/wedding3.jpg')
+                    ]} />
 
-                <Text style={styles.titleSearch}>Le nostre Locations...</Text>
-                <View style={{ flex: 1 }}>
-                    <AutoCompleteInput
-                        data={provinces}
-                        placeholder="Cerca provincia..."
-                    />
-                </View>
-                <FlatList
-                    horizontal
-                    data={topLocations}
-                    renderItem={({ item, index }) => (
-                        <View style={{
-                            marginRight: 10, borderRadius: 10, paddingVertical: 6, // iOS
-                            shadowColor: '#000',
-                            shadowOffset: { width: 0, height: 2 },
-                            shadowOpacity: 0.2,
-                            shadowRadius: 3,
-                        }}>
-                            <Image source={item.image} style={styles.carouselImage} />
-                        </View>
-                    )}
-                    keyExtractor={(item) => item.id}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingHorizontal: 16 }}
-                />
-
-                {/* Hero Image */}
-                <Image
-                    source={require('../assets/villa4.jpg')}
-                    style={styles.heroImage}
-                    resizeMode="cover"
-                />
-                <View style={styles.categoryContainer}>
+                    <Text style={styles.titleSearch}>Le nostre locations</Text>
+                    <View style={{ flex: 1 }}>
+                        <AutoCompleteInput
+                            data={provinces}
+                            placeholder="Cerca provincia..."
+                        />
+                    </View>
                     <FlatList
                         horizontal
-                        data={categories}
+                        data={topLocations}
                         renderItem={({ item, index }) => (
                             <TouchableOpacity
-                                style={styles.categoryButton}
-                                onPress={() => navigation.navigate('VilleList')}
-                            >
-                                <Text style={styles.categoryText}>{item}</Text>
+                                onPress={() => navigation.navigate('VilleList')} style={styles.locationContainer}>
+                                <Text style={styles.locationText}>{item.name}</Text>
                             </TouchableOpacity>
                         )}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item) => item.id}
                         showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ paddingHorizontal: 16 }}
                     />
-                </View>
 
-                {/* FAQ */}
-                <Text style={styles.titleSearch}>Q & A</Text>
-                {faqs.map((item, i) => (
-                    <TouchableOpacity
-                        key={i}
-                        style={styles.faqItem}
-                        onPress={() =>
-                            setExpandedFAQ((prev) => (prev === i ? null : i))
-                        }
-                    >
-                        <Text style={styles.faqQuestion}>{item.question}</Text>
-                        {expandedFAQ === i && (
-                            <Text style={styles.faqAnswer}>{item.answer}</Text>
-                        )}
-                    </TouchableOpacity>
-                ))}
+                    {/* Hero Image */}
+                    <Image
+                        source={require('../assets/villa4.jpg')}
+                        style={styles.heroImage}
+                        resizeMode="cover"
+                    />
+                    <View style={styles.categoryContainer}>
+                        <FlatList
+                            horizontal
+                            data={categories}
+                            renderItem={({ item, index }) => (
+                                <View
+                                    style={styles.categoryButton} >
+                                    <Text style={styles.categoryText}>{item}</Text>
+                                </View>
+                            )}
+                            keyExtractor={(item, index) => index.toString()}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ paddingHorizontal: 16 }}
+                        />
+                    </View>
+
+                    {/* FAQ */}
+                    <Text style={styles.titleSearch}>Q & A</Text>
+                    {faqs.map((item, i) => (
+                        <TouchableOpacity
+                            key={i}
+                            style={styles.faqItem}
+                            onPress={() =>
+                                setExpandedFAQ((prev) => (prev === i ? null : i))
+                            }
+                        >
+                            <Text style={styles.faqQuestion}>{item.question}</Text>
+                            {expandedFAQ === i && (
+                                <Text style={styles.faqAnswer}>{item.answer}</Text>
+                            )}
+                        </TouchableOpacity>
+                    ))}
 
                 </View>
 
@@ -199,12 +191,6 @@ const styles = StyleSheet.create({
         margin: 8,
         color: theme.secondary,
     },
-    carouselImage: {
-        width: 120,
-        height: 120,
-        padding: 4,
-        borderRadius: 6,
-    },
     heroImage: {
         width: '100%',
         height: 200,
@@ -243,7 +229,25 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
     },
-
+    locationContainer: {
+        borderRadius: 100,
+        margin: 16,
+        marginRight: 4,
+        backgroundColor: theme.primary,
+        width: 100,
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
+    locationText: {
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: 'bold'
+    },
     footer: {
         padding: 20,
         borderTopWidth: 1,
