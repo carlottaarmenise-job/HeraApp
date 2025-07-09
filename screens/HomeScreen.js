@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         padding: 20,
+        height: 100,
         borderTopWidth: 1,
         borderColor: theme.secondary,
         alignItems: 'center',

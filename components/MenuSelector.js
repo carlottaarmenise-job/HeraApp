@@ -20,19 +20,19 @@ const MenuSelector = ({ category, items, selected, toggle }) => {
 const styles = StyleSheet.create({
   section: {
     padding: 20,
-    backgroundColor: 'white'
+    backgroundColor: theme.secondary
   },
   category: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: theme.primary,
+    color: 'white',
     marginBottom: 10,
   },
   item: {
     paddingVertical: 4,
   },
   itemText: {
-    color: 'gray',
+    color: 'white',
     fontSize: 14,
   },
 });

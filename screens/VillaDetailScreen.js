@@ -27,19 +27,30 @@ const VillaDetailScreen = ({ navigation }) => {
         <GalleryScreen />
         {/* Descrizione */}
         <Text style={styles.description}>
-          La nostra selezione di strutture include le più belle ville regionali del mondo,
-          con location affascinanti per ogni tipo di evento: matrimoni, cerimonie e feste private.
+          Una splendida oasi di verde alle falde del Vesuvio circonda Complesso Zeno- Villa Tony, esclusiva location con vista mozzafiato sul Golfo di Napoli che farà da cornice al giorno più bello della vostra vita, offrendovi ambienti eleganti e un servizio impeccabile in ogni fase dell'evento.
         </Text>
 
+        <Text style={styles.sectionTitle}>Spazi e capienza</Text>
         <Text style={styles.description}>
-          Tutte le location sono state selezionate con cura per garantire il massimo della qualità
-          in termini di ambientazione, logistica e servizi.
+          La Villa dispone di spazi ampi e lussuosi che si adattano perfettamente a eventi di ogni tipo. La sala centrale è il cuore della struttura, con i suoi arredi raffinati e la possibilità di ospitare un elevato numero di invitati.
+          Gli esterni di Complesso Zeno- Villa Tony sono caratterizzati dalla presenza di ampie terrazze panoramiche e di una splendida piscina, scelta ideale per allestire il vostro ricevimento all'aria aperta.
         </Text>
 
+        <Text style={styles.sectionTitle}>Servizi offerti</Text>
         <Text style={styles.description}>
-          Le ville sono dislocate nel cuore delle migliori destinazioni siciliane e sono state
-          ottimizzate per offrire un’esperienza completa, unica e memorabile.
+          Lo staff vi offrirà i migliori servizi e un'attenzione personalizzata, capace di esaudire ogni vostra richiesta. La cura per i dettagli e la cortesia che troverete al Complesso Zeno- Villa Tony contribuiranno a rendere indimenticabile il vostro matrimonio.
         </Text>
+
+        <Text style={styles.sectionTitle}>Ristorazione</Text>
+        <Text style={styles.description}>
+          I loro chef si occuperanno del vostro banchetto con proposte culinarie prelibate che saranno elegantemente presentate in tavola, per stupire gli occhi e conquistare il palato.
+        </Text>
+
+        <Text style={styles.sectionTitle}>Ubicazione</Text>
+        <Text style={styles.description}>
+          Complesso Zeno - Villa Tony si trova a Ercolano, a poca distanza da Napoli e dalle più suggestive località della regione, immersa in un contesto paesaggistico di straordinaria bellezza, per incorniciare in modo esclusivo i momenti più romantici della vostra vita insieme.
+        </Text>
+
 
         {/* Pulsante */}
         <TouchableOpacity
@@ -99,6 +110,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     padding: 20,
+    height: 100,
     borderTopWidth: 1,
     borderColor: theme.secondary,
     alignItems: 'center',
@@ -126,5 +138,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: theme.secondary,
     borderRadius: 100,
+  },
+  sectionTitle: {
+    paddingHorizontal: 16,
+    marginTop: 24,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: theme.secondary,
   },
 });

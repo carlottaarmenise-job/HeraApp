@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Image
 } from 'react-native';
 import MenuSelector from '../components/MenuSelector';
 import { theme } from '../assets/styles/styles';
+import { useNavigation } from '@react-navigation/native';
 
 const menuItems = {
   ANTIPASTI: [
@@ -65,11 +67,17 @@ const dishPrices = {
 };
 
 const CustomizeMenuScreen = () => {
-  const [peopleCount, setPeopleCount] = useState('');
   const [budget, setBudget] = useState('');
+  const navigation = useNavigation()
   const [selectedDishes, setSelectedDishes] = useState({});
+  const [selectedRange, setSelectedRange] = useState(null);
 
-  const predefinedPeople = [50, 100, 200, 300];
+  const peopleRanges = [
+    { label: '0-50', min: 0, max: 50, pricePerPerson: 20 },
+    { label: '51-100', min: 51, max: 100, pricePerPerson: 30 },
+    { label: '101-200', min: 101, max: 200, pricePerPerson: 40 },
+    { label: '200+', min: 201, max: Infinity, pricePerPerson: 50 },
+  ];
 
   const toggleDish = (dish) => {
     setSelectedDishes((prev) => ({
@@ -80,83 +88,134 @@ const CustomizeMenuScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>NOME VILLA</Text>
-
-      <Text style={styles.label}>NUMERO PERSONE</Text>
-      <View style={styles.radioGroup}>
-        {predefinedPeople.map((number) => (
-          <TouchableOpacity
-            key={number}
-            style={[
-              styles.radioButton,
-              parseInt(peopleCount) === number && styles.radioSelected,
-            ]}
-            onPress={() => setPeopleCount(number.toString())}
-          >
-            <Text
-              style={[
-                styles.radioText,
-                parseInt(peopleCount) === number && styles.radioTextSelected,
-              ]}
-            >
-              {number}
-            </Text>
-          </TouchableOpacity>
-        ))}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.back}>{'<'}</Text>
+        </TouchableOpacity>
+        <Image source={require('../assets/logo.png')} style={{ width: 80, height: 80 }} />
       </View>
-      <TextInput
-        style={styles.input}
-        value={peopleCount}
-        onChangeText={setPeopleCount}
-        keyboardType="numeric"
-        placeholder="Oppure inserisci il numero"
-        placeholderTextColor="#ccc"
-      />
+      <View style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
+        <Text style={styles.villaTitle}>NOME VILLA</Text>
 
-      <Text style={styles.label}>BUDGET</Text>
-      <TextInput
-        style={styles.input}
-        value={budget}
-        onChangeText={setBudget}
-        keyboardType="numeric"
-        placeholder="Inserisci il budget"
-        placeholderTextColor="#ccc"
-      />
+        <Text style={styles.label}>NUMERO PERSONE</Text>
+        <View style={styles.radioGroup}>
+          {peopleRanges.map((range) => (
+            <TouchableOpacity
+              key={range.label}
+              style={[
+                styles.radioButton,
+                selectedRange?.label === range.label && styles.radioSelected,
+              ]}
+              onPress={() => setSelectedRange(range)}
+            >
+              <Text
+                style={[
+                  styles.radioText,
+                  selectedRange?.label === range.label && styles.radioTextSelected,
+                ]}
+              >
+                {range.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      {Object.entries(menuItems).map(([category, items]) => (
-        <MenuSelector
-          key={category}
-          category={category}
-          items={items}
-          selected={selectedDishes}
-          toggle={toggleDish}
+
+        <Text style={styles.label}>BUDGET</Text>
+        <TextInput
+          style={styles.input}
+          value={budget}
+          onChangeText={setBudget}
+          keyboardType="numeric"
+          placeholder="Inserisci il budget"
+          placeholderTextColor="#ccc"
         />
-      ))}
 
-      <TouchableOpacity
-        style={styles.confirmButton}
-        onPress={() => {
-          const selected = Object.keys(selectedDishes).filter((dish) => selectedDishes[dish]);
-          const people = parseInt(peopleCount) || 0;
+        {Object.entries(menuItems).map(([category, items]) => (
+          <MenuSelector
+            key={category}
+            category={category}
+            items={items}
+            selected={selectedDishes}
+            toggle={toggleDish}
+          />
+        ))}
 
-          const totalPerPerson = selected.reduce((sum, dish) => sum + (dishPrices[dish] || 0), 0);
+        <TouchableOpacity
+          style={styles.confirmButton}
+          onPress={() => {
+            const selected = Object.keys(selectedDishes).filter((dish) => selectedDishes[dish]);
 
-          if (budget && totalPerPerson > 0 && people > 0) {
+            if (!selectedRange || !budget) {
+              Alert.alert('Risultato', '⚠️ Seleziona un range e inserisci il budget.');
+              return;
+            }
+
+            const dishesCost = selected.reduce((sum, dish) => sum + (dishPrices[dish] || 0), 0);
             const budgetPerPerson = parseFloat(budget);
-            if (totalPerPerson <= budgetPerPerson) {
-              Alert.alert('Risultato', '✅ Il menù è entro il budget.');
+            const fixedCost = selectedRange.pricePerPerson;
+            const maxAvailableForDishes = budgetPerPerson - fixedCost;
+
+            if (maxAvailableForDishes <= 0) {
+              Alert.alert(
+                'Risultato',
+                `❌ Il budget inserito è insufficiente.`
+              );
+               navigation.navigate('ConfirmBooking', {
+                selectedDishes: selected,
+                selectedRange,
+                budget,
+                villa: {
+                  name: 'Villa Paradiso',
+                  address: 'Via delle Rose 12, Firenze',
+                  phone: '+39 328 556 2095',
+                  email: 'info@designmyweddingevent.com',
+                },
+              });
+              return;
+            }
+
+            if (dishesCost <= maxAvailableForDishes) {
+              Alert.alert(
+                'Risultato',
+                `✅ Il menù è entro il budget.`
+              );
+              navigation.navigate('ConfirmBooking', {
+                selectedDishes: selected,
+                selectedRange,
+                budget,
+                villa: {
+                  name: 'Villa Paradiso',
+                  address: 'Via delle Rose 12, Firenze',
+                  phone: '+39 328 556 2095',
+                  email: 'info@designmyweddingevent.com',
+                },
+              });
+
             } else {
-              Alert.alert('Risultato', '❌ Il menù supera il budget.');
+              Alert.alert(
+                'Risultato',
+                `❌ Il budget inserito è insufficiente.`
+              );
+              navigation.navigate('ConfirmBooking', {
+                selectedDishes: selected,
+                selectedRange,
+                budget,
+                villa: {
+                  name: 'Villa Paradiso',
+                  address: 'Via delle Rose 12, Firenze',
+                  phone: '+39 328 556 2095',
+                  email: 'info@designmyweddingevent.com',
+                },
+              });
 
             }
-          } else {
-              Alert.alert('Risultato', '⚠️ Inserisci tutti i dati correttamente.');
+          }}
 
-          }
-        }}
-      >
-        <Text style={styles.confirmText}>CONFERMA</Text>
-      </TouchableOpacity>
+        >
+          <Text style={styles.confirmText}>CONFERMA</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.footer}>
         <Text style={styles.footerText}>TALK TO US</Text>
         <Text style={styles.footerText}>(+39) 328 556 2095</Text>
@@ -173,61 +232,91 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.primary,
-    padding: 20,
   },
-  title: {
+  header: {
+    flexDirection: 'row',
+    padding: 16,
+    paddingBottom: 0,
+    backgroundColor: theme.primary,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: theme.secondary,
+  },
+  back: {
     color: 'white',
+    fontWeight: 'bold',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: theme.secondary,
+    borderRadius: 100,
+  },
+  villaTitle: {
+    padding: 16,
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 15,
+    color: theme.secondary,
   },
   label: {
-    color: 'white',
+    paddingHorizontal: 16,
+    color: theme.primary,
     fontSize: 16,
     marginTop: 10,
     marginBottom: 5,
   },
   radioGroup: {
+    paddingHorizontal: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginBottom: 15,
   },
   radioButton: {
-    backgroundColor: 'white',
+    backgroundColor: theme.primary,
     borderRadius: 20,
     paddingHorizontal: 15,
     paddingVertical: 8,
-    margin: 5,
+    marginRight: 5,
   },
   radioSelected: {
-    backgroundColor: '#fff',
-    borderColor: '#333',
+    backgroundColor: theme.secondary,
+    borderColor: theme.secondary,
     borderWidth: 2,
   },
   radioText: {
-    color: theme.primary,
+    color: 'white',
     fontWeight: 'bold',
   },
   radioTextSelected: {
-    color: '#000',
+    color: 'white',
   },
   input: {
+    marginHorizontal: 16,
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   confirmButton: {
-    backgroundColor: 'white',
-    padding: 15,
+    backgroundColor: theme.primary,
+    padding: 16,
+    margin: 16,
     borderRadius: 8,
+    marginTop: 30,
     alignItems: 'center',
-    marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   confirmText: {
-    color: theme.primary,
+    color: 'white',
     fontWeight: 'bold',
+    fontSize: 14,
   },
   resultText: {
     color: 'white',
@@ -237,14 +326,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   footer: {
-    marginTop: 30,
     padding: 20,
+    height: 100,
     borderTopWidth: 1,
-    borderColor: '#fff',
+    borderColor: theme.secondary,
     alignItems: 'center',
+    backgroundColor: theme.primary
   },
   footerText: {
-    color: 'white',
+    color: theme.secondary,
     fontSize: 14,
     marginVertical: 2,
   },
