@@ -61,13 +61,6 @@ const VillaDetailScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>TALK TO US</Text>
-        <Text style={styles.footerText}>(+39) 328 556 2095</Text>
-        <Text style={styles.footerText}>info@designmyweddingevent.com</Text>
-        <Text style={styles.footerText}>📷 🟦</Text>
-      </View>
     </ScrollView>
   );
 };
@@ -86,7 +79,7 @@ const styles = StyleSheet.create({
   },
   description: {
     paddingHorizontal: 16,
-    color: theme.secondary,
+    color: '#555',
     fontSize: 14,
     marginTop: 10,
     lineHeight: 20,
@@ -108,19 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
   },
-  footer: {
-    padding: 20,
-    height: 100,
-    borderTopWidth: 1,
-    borderColor: theme.secondary,
-    alignItems: 'center',
-    backgroundColor: theme.primary
-  },
-  footerText: {
-    color: theme.secondary,
-    fontSize: 14,
-    marginVertical: 2,
-  },
+ 
   header: {
     flexDirection: 'row',
     padding: 16,

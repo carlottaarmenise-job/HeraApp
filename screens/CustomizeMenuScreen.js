@@ -16,31 +16,126 @@ import { useNavigation } from '@react-navigation/native';
 
 const menuItems = {
   ANTIPASTI: [
-    'Carpaccio di Manzo Balsamico',
-    'Tartare di Salmone e Avocado',
-    'Crudo con Pere e Avocado',
-    'Insalata di Mare Lime e Menta',
-    'Involtini di Melanzane Ricotta',
+    {
+      id: 'antipasto_1',
+      title: 'Carpaccio di Manzo Balsamico',
+      description: 'Sottili fette di manzo con rucola e riduzione al balsamico.',
+      image: require('../assets/menu/carpaccio.png'),
+    },
+    {
+      id: 'antipasto_2',
+      title: 'Tartare di Salmone e Avocado',
+      description: 'Salmone fresco con avocado, lime e pepe rosa.',
+      image: require('../assets/menu/tartare.png'),
+    },
+    {
+      id: 'antipasto_3',
+      title: 'Crudo con Pere e Avocado',
+      description: 'Prosciutto crudo con pere mature e crema di avocado.',
+      image: require('../assets/menu/crudo_pere.png'),
+    },
+    {
+      id: 'antipasto_4',
+      title: 'Insalata di Mare Lime e Menta',
+      description: 'Frutti di mare marinati con lime fresco e foglie di menta.',
+      image: require('../assets/menu/insalata_mare.png'),
+    },
+    {
+      id: 'antipasto_5',
+      title: 'Involtini di Melanzane Ricotta',
+      description: 'Melanzane grigliate farcite con ricotta ed erbe aromatiche.',
+      image: require('../assets/menu/involtini_melanzane.png'),
+    },
   ],
   PRIMI: [
-    'Risotto Nero ai Frutti di Mare',
-    'Tagliolini Tartufo e Panna',
-    'Gnocchi Spinaci e Ricotta Noci',
-    'Ravioli Zucca e Amaretti in Salvia',
-    'Linguine Vongole e Zafferano',
+    {
+      id: 'primo_1',
+      title: 'Risotto Nero ai Frutti di Mare',
+      description: 'Risotto al nero di seppia con calamari, cozze e vongole.',
+      image: require('../assets/menu/risotto_nero.png'),
+    },
+    {
+      id: 'primo_2',
+      title: 'Tagliolini Tartufo e Panna',
+      description: 'Tagliolini freschi con panna e scaglie di tartufo nero.',
+      image: require('../assets/menu/tagliolini_tartufo.png'),
+    },
+    {
+      id: 'primo_3',
+      title: 'Gnocchi Spinaci e Ricotta Noci',
+      description: 'Gnocchi verdi con ricotta, spinaci e granella di noci.',
+      image: require('../assets/menu/gnocchi_spinaci.png'),
+    },
+    {
+      id: 'primo_4',
+      title: 'Ravioli Zucca e Amaretti in Salvia',
+      description: 'Ravioli di zucca con burro, salvia e briciole di amaretto.',
+      image: require('../assets/menu/ravioli_zucca.png'),
+    },
+    {
+      id: 'primo_5',
+      title: 'Linguine Vongole e Zafferano',
+      description: 'Linguine con vongole veraci e un tocco di zafferano.',
+      image: require('../assets/menu/linguine_vongole.png'),
+    },
   ],
   SECONDI: [
-    'Filetto di Manzo al Barolo',
-    'Branzino al Limone e Rosmarino',
-    'Petto di Pollo al Marsala',
-    'Salmone Grigliato alle Erbe',
+    {
+      id: 'secondo_1',
+      title: 'Filetto di Manzo al Barolo',
+      description: 'Filetto di manzo cotto al vino Barolo, tenero e succoso.',
+      image: require('../assets/menu/filetto_barolo.png'),
+    },
+    {
+      id: 'secondo_2',
+      title: 'Branzino al Limone e Rosmarino',
+      description: 'Filetto di branzino al forno con limone e rosmarino fresco.',
+      image: require('../assets/menu/branzino.png'),
+    },
+    {
+      id: 'secondo_3',
+      title: 'Petto di Pollo al Marsala',
+      description: 'Pollo rosolato in padella con salsa cremosa al Marsala.',
+      image: require('../assets/menu/pollo_marsala.png'),
+    },
+    {
+      id: 'secondo_4',
+      title: 'Salmone Grigliato alle Erbe',
+      description: 'Filetto di salmone grigliato con erbe mediterranee.',
+      image: require('../assets/menu/salmone.png'),
+    },
   ],
   DOLCI: [
-    'Tiramisù di Cioccolato Fondente',
-    'Panna Cotta al Pistacchio',
-    'Cannolo Siciliano al Pistacchio',
-    'Torta Caprese all’Arancia',
-    'Semifreddo al Torrone',
+    {
+      id: 'dolce_1',
+      title: 'Tiramisù di Cioccolato Fondente',
+      description: 'Il classico tiramisù arricchito con scaglie di fondente.',
+      image: require('../assets/menu/tiramisu.png'),
+    },
+    {
+      id: 'dolce_2',
+      title: 'Panna Cotta al Pistacchio',
+      description: 'Panna cotta cremosa con crema e granella di pistacchio.',
+      image: require('../assets/menu/panna_cotta.png'),
+    },
+    {
+      id: 'dolce_3',
+      title: 'Cannolo Siciliano al Pistacchio',
+      description: 'Cannolo croccante con ricotta dolce e pistacchi.',
+      image: require('../assets/menu/cannolo.png'),
+    },
+    {
+      id: 'dolce_4',
+      title: 'Torta Caprese all’Arancia',
+      description: 'Torta al cioccolato e mandorle con scorza d’arancia.',
+      image: require('../assets/menu/caprese_arancia.png'),
+    },
+    {
+      id: 'dolce_5',
+      title: 'Semifreddo al Torrone',
+      description: 'Dessert semifreddo con croccante di torrone e miele.',
+      image: require('../assets/menu/semifreddo.png'),
+    },
   ],
 };
 
@@ -131,20 +226,29 @@ const CustomizeMenuScreen = () => {
           placeholderTextColor="#ccc"
         />
 
-        {Object.entries(menuItems).map(([category, items]) => (
-          <MenuSelector
-            key={category}
-            category={category}
-            items={items}
-            selected={selectedDishes}
-            toggle={toggleDish}
-          />
-        ))}
-
+        <View style={styles.section}>
+          {Object.entries(menuItems).map(([category, items]) => (
+            <MenuSelector
+              key={category}
+              category={category}
+              items={items}
+              selected={selectedDishes}
+              toggle={toggleDish}
+            />
+          ))}
+        </View>
         <TouchableOpacity
           style={styles.confirmButton}
           onPress={() => {
-            const selected = Object.keys(selectedDishes).filter((dish) => selectedDishes[dish]);
+            const selectedArray = Object.keys(selectedDishes).filter(dish => selectedDishes[dish]);
+
+            const selected = selectedArray.map(id => {
+              for (const category in menuItems) {
+                const found = menuItems[category].find(item => item.id === id);
+                if (found) return found.title;
+              }
+              return undefined;
+            }).filter(Boolean);
 
             if (!selectedRange || !budget) {
               Alert.alert('Risultato', '⚠️ Seleziona un range e inserisci il budget.');
@@ -161,7 +265,7 @@ const CustomizeMenuScreen = () => {
                 'Risultato',
                 `❌ Il budget inserito è insufficiente.`
               );
-               navigation.navigate('ConfirmBooking', {
+              navigation.navigate('ConfirmBooking', {
                 selectedDishes: selected,
                 selectedRange,
                 budget,
@@ -216,12 +320,7 @@ const CustomizeMenuScreen = () => {
           <Text style={styles.confirmText}>CONFERMA</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>TALK TO US</Text>
-        <Text style={styles.footerText}>(+39) 328 556 2095</Text>
-        <Text style={styles.footerText}>info@designmyweddingevent.com</Text>
-        <Text style={styles.footerText}>📷 🟦</Text>
-      </View>
+
     </ScrollView>
   );
 };
@@ -242,6 +341,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderColor: theme.secondary,
+  },
+  section: {
+    marginHorizontal: 16,
+    padding: 12,
+    backgroundColor: 'white', borderRadius: 12, shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   back: {
     color: 'white',
@@ -325,17 +432,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
-  footer: {
-    padding: 20,
-    height: 100,
-    borderTopWidth: 1,
-    borderColor: theme.secondary,
-    alignItems: 'center',
-    backgroundColor: theme.primary
-  },
-  footerText: {
-    color: theme.secondary,
-    fontSize: 14,
-    marginVertical: 2,
-  },
+
 });

@@ -146,14 +146,6 @@ const HomeScreen = ({ navigation }) => {
 
                 </View>
 
-                {/* Footer */}
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>TALK TO US</Text>
-                    <Text style={styles.footerText}>(+39) 328 556 2095</Text>
-                    <Text style={styles.footerText}>info@designmyweddingevent.com</Text>
-                    <Text style={styles.footerText}>📷  🟦</Text>
-                </View>
-
             </ScrollView>
             <TouchableOpacity style={styles.fixedSignupButton} onPress={() => navigation.navigate('SignUp')}>
                 <Text style={styles.signupButtonText}>SIGN UP</Text>
@@ -234,8 +226,8 @@ const styles = StyleSheet.create({
         margin: 16,
         marginRight: 4,
         backgroundColor: theme.primary,
-        width: 100,
-        height: 100,
+        width: 84,
+        height: 84,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
@@ -246,21 +238,10 @@ const styles = StyleSheet.create({
     locationText: {
         textAlign: 'center',
         color: 'white',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 12
     },
-    footer: {
-        padding: 20,
-        height: 100,
-        borderTopWidth: 1,
-        borderColor: theme.secondary,
-        alignItems: 'center',
-        backgroundColor: theme.primary
-    },
-    footerText: {
-        color: theme.secondary,
-        fontSize: 14,
-        marginVertical: 2,
-    },
+  
     header: {
         paddingTop: 20,
         paddingBottom: 10,

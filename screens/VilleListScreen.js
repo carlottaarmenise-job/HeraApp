@@ -109,12 +109,6 @@ const VilleListScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingBottom: 20, marginTop: 20 }}
       />
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>TALK TO US</Text>
-        <Text style={styles.footerText}>(+39) 328 556 2095</Text>
-        <Text style={styles.footerText}>info@designmyweddingevent.com</Text>
-        <Text style={styles.footerText}>📷  🟦</Text>
-      </View>
     </View>
   );
 };
@@ -143,17 +137,5 @@ const styles = StyleSheet.create({
     backgroundColor: theme.secondary,
     borderRadius: 100,
   },
-  footer: {
-    padding: 20,
-    height:100,
-    borderTopWidth: 1,
-    borderColor: theme.secondary,
-    alignItems: 'center',
-    backgroundColor: theme.primary
-  },
-  footerText: {
-    color: theme.secondary,
-    fontSize: 14,
-    marginVertical: 2,
-  },
+ 
 });
