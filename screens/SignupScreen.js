@@ -98,12 +98,6 @@ const SignUpScreen = () => {
         <Text style={styles.buttonText}>ISCRIVITI</Text>
       </TouchableOpacity>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>TALK TO US</Text>
-        <Text style={styles.footerText}>(+39) 328 556 2095</Text>
-        <Text style={styles.footerText}>info@designmyweddingevent.com</Text>
-        <Text style={styles.footerText}>📷 🟦</Text>
-      </View>
     </ScrollView>
   );
 };
@@ -139,17 +133,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: theme.primary,
     fontWeight: 'bold',
-  },
-  footer: {
-    marginTop: 40,
-    padding: 20,
-    borderTopWidth: 1,
-    borderColor: '#fff',
-    alignItems: 'center',
-  },
-  footerText: {
-    color: 'white',
-    fontSize: 14,
-    marginVertical: 2,
   },
 });
