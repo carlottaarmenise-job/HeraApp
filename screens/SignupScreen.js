@@ -9,8 +9,10 @@ import {
   Image,
 } from 'react-native';
 import { theme } from '../assets/styles/styles';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUpScreen = () => {
+  const navigation = useNavigation()
   const [form, setForm] = useState({
     nome: '',
     cognome: '',
@@ -43,6 +45,11 @@ const SignUpScreen = () => {
     alert('Registrazione completata!');
     // Qui puoi collegare Firebase o altro backend
   };
+
+  const handleLogin = () => {
+    navigation.navigate('Profile')
+  };
+
 
   return (
     <ScrollView style={styles.container}>
@@ -102,6 +109,9 @@ const SignUpScreen = () => {
 
         <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.buttonText}>ISCRIVITI</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
       </View>
 

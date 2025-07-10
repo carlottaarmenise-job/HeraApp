@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 import { theme } from '../assets/styles/styles';
 import ConfirmBookingScreen from '../screens/ConfirmBookingScreen';
+import ProfileScreen from '../screens/Profile';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ const AppNavigator = () => {
           <Stack.Screen name="VillaDetail" component={VillaDetailScreen} />
           <Stack.Screen name="CustomizeMenu" component={CustomizeMenuScreen} />
           <Stack.Screen name="SignUp" component={SignupScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="ConfirmBooking" component={ConfirmBookingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
