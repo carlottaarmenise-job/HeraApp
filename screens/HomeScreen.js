@@ -107,7 +107,7 @@ const HomeScreen = ({ navigation }) => {
 
                     {/* Hero Image */}
                     <Image
-                        source={require('../assets/villa4.jpg')}
+                        source={require('../assets/services.png')}
                         style={styles.heroImage}
                         resizeMode="cover"
                     />
